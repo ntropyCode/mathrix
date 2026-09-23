@@ -11,24 +11,39 @@ of prime structure through the Riemann zeta function.
 [Research](intents/research.md) owns the motivation, working scope,
 mathematical starting points, and open questions. It distinguishes known
 identities from interpretations and conjectures. Visualizations serve that
-research by making specified distinctions and transitions available for
+research by making specified differences and transitions available for
 inspection.
 
-The repository currently contains documented intent and operating guidance.
-Add an experiment or context node when a concrete research question needs
-it. Prior prototypes inform the project; their implementations are not
-assumed correct or imported as dependencies.
+The inquiry includes the proposal that entities, states, and their spatial or
+temporal relationships share a basis in organized differences. It asks which
+changes of representation or exchanges of state and process preserve the
+differences a question requires. These are research directions to make precise
+and test, alongside the established arithmetic identities.
+
+The repository contains documented intent, operating guidance, and a browser
+arithmetic experiment. The application evaluates formulas through explicit
+algorithms and exposes their register states in a wrapped bit field. Its
+execution, representation choices, and current limits are described in
+[README.md](README.md#arithmetic-and-limits). Prior prototypes inform the project;
+their implementations are not assumed correct or imported as dependencies.
 
 ## Vocabulary
 
+- **difference** — how configurations or observations differ or could differ;
+  an accessible difference can be detected by an observer, and a retained
+  difference remains recoverable after a transformation
 - **value** — the mathematical object represented, distinct from its encoding
 - **representation** — an encoding with a specified interpretation
 - **algorithm** — an explicit procedure implementing an operation within a
   stated domain
+- **entity** — a unit the model distinguishes and, where needed, tracks
+  through change
+- **identity** — the criterion for treating configurations as belonging to
+  the same entity; it may depend on history and relations
 - **state** — the configuration within a chosen boundary; a complete process
   state includes retained inputs and control information needed to determine
   its evolution
-- **observation** — the distinctions exposed by a specified view of a state
+- **observation** — the differences exposed by a specified view of a state
   or history
 - **invariant** — a property preserved by a specified transformation
 - **hypothesis** — a proposed relationship whose supporting argument or
@@ -88,3 +103,11 @@ operating constraint, independent of the mathematical hypotheses under study.
 - [Intend](.agents/skills/intend/SKILL.md) — ownership and authoring of intent.
 - [Navigate](.agents/skills/navigate/SKILL.md) — finding sufficient context.
 - [Verify](.agents/skills/verify/SKILL.md) — choosing and evaluating evidence.
+
+## Verification
+
+Run `npm run check` for parser, arithmetic-invariant, representation, viewport,
+and worker-streaming checks. Run `npm start` to inspect formula execution,
+playback, history, and pan/zoom in the browser; stop that server after verification
+unless it is being presented to the user. The application does not write run data
+to disk.
