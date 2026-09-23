@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080a11">
+  <title>Mathrix — beneath arithmetic</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main id="app">
+    <header class="app-header">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><h1>mathrix</h1></div>
+      <p>beneath arithmetic</p>
+    </header>
+
+    <form id="formula-form" class="foreground">
+      <div class="section-heading"><label for="formula">Foreground</label><label class="example-label">Try <select id="examples" aria-label="Example formula"><option value="">an example</option><option value="(13 * 11) + 5">Multiply, then add</option><option value="31 + 1">A travelling carry</option><option value="(2^128 - 1) + 1">128-bit carry</option><option value="2^64">A growing power</option><option value="1/3 + 1/6">Exact fractions</option><option value="3 - 8">Negative result</option><option value="log(8, 2)">Logarithm base 2</option><option value="log(2)">Natural log · log(2)</option></select></label></div>
+      <div class="formula-row"><input id="formula" name="formula" type="text" value="(13 * 11) + 5" spellcheck="false" autocomplete="off" aria-label="Arithmetic formula"><button class="primary" type="submit" id="run">Run</button></div>
+      <div class="result-row"><output id="result" aria-live="polite">Ready to compute</output><span id="result-kind"></span></div>
+      <div id="error" class="error" role="alert" hidden></div>
+    </form>
+
+    <section class="machine" aria-label="Binary computation">
+      <div class="machine-header"><div><div class="eyebrow">Background</div><h2 id="operation">Loading arithmetic</h2></div><div class="view-controls"><label>Wrap <select id="columns" aria-label="Columns before wrapping"><option>16</option><option selected>32</option><option>64</option><option>128</option></select></label><button type="button" id="zoom-out" aria-label="Zoom out">−</button><button type="button" id="zoom-in" aria-label="Zoom in">+</button><button type="button" id="fit">Reset view</button></div></div>
+      <div id="active-expression" class="active-expression" aria-label="Executing subexpression"></div>
+      <div class="playback"><div class="transport"><button type="button" id="restart">Restart</button><button type="button" id="previous" aria-label="Previous step">←</button><button type="button" id="play" class="play">Play</button><button type="button" id="next" aria-label="Next step">→</button></div><label class="speed-label">Speed <select id="speed"><option value="2">2 steps/s</option><option value="12" selected>12 steps/s</option><option value="60">60 steps/s</option><option value="fast">Fast forward</option></select></label><button type="button" id="finish">Finish</button></div>
+      <div class="timeline-label"><label for="timeline">Execution step <strong id="step-index">0</strong></label><span id="history-note">History builds as you run</span></div><input id="timeline" type="range" min="0" max="0" value="0" aria-label="Recorded execution step">
+      <div class="field-viewport"><canvas id="field" role="img" aria-label="Binary working registers. Bright cyan cells are one; dark cells are zero. Register values are available below."></canvas><div id="tooltip" class="tooltip" hidden></div><div id="loading" class="field-status">Preparing the first state…</div></div>
+      <div class="field-footer"><div class="legend"><span><i class="one"></i>1</span><span><i class="zero"></i>0</span><span><i class="input"></i>Input</span><span><i class="carry"></i>Carry / active bit</span></div><span class="navigation-hint">Drag to pan · scroll to zoom</span></div>
+      <p id="detail" class="step-detail" aria-live="polite">Each visible state comes from the running algorithm.</p>
+    </section>
+
+    <section class="support">
+      <details><summary>How to read the field</summary><div class="help"><p>Each named region is a working register. Bits start at the right and wrap upward as the value grows. Cyan cells are 1; dark cells are 0. A magenta outline marks carry information or the active position. Hover a cell for its bit position.</p><p>Negative values use an explicit sign with binary magnitude. Fractions retain separate numerator and denominator registers. This is the chosen algorithm’s state, not a trace of your CPU.</p><p>Use <code>+ − * / ^</code>, parentheses, decimal numbers, <code>0b101</code>, or <code>0xff</code>. Plain <code>10</code> means decimal ten. <code>log(x)</code> is the natural logarithm; <code>log(x, base)</code> chooses a base. Powers require integer exponents.</p><label class="precision-label">Logarithm precision <select id="precision"><option value="16">16 fractional bits</option><option value="24" selected>24 fractional bits</option><option value="32">32 fractional bits</option><option value="48">48 fractional bits</option></select></label><p>Fractions and integer operations are exact. Logarithms are numerical approximations, not certified error bounds. Runs retain the most recent 512 states; restart to replay earlier states.</p></div></details>
+      <details><summary>Current register values <span id="register-count"></span></summary><div id="register-values" class="register-values"></div></details>
+    </section>
+    <footer class="app-footer"><span>Arithmetic in the foreground. Its working state underneath.</span><span id="run-status">Paused</span></footer>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
